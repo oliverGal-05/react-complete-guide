@@ -5,19 +5,17 @@ import Person from './Person/Person';
 class App extends Component {
   state = {
     people: [
-      { name: 'Max', age: 27},
-      { name: 'John', age: 19}
+      { id: 'asd21' ,name: 'Max', age: 27},
+      { id: 'awe21' ,name: 'John', age: 19}
     ],
     showPeople: false
   }
 
-  switchNameHandler = (newName) => {
-    this.setState({
-      people: 
-      [
-        { name: newName, age: 27},
-        { name: 'John', age: 21}
-      ]})
+  deletePersonHandler = (personIndex) => {
+    //const people = this.state.people.slice(); without params => copies the original array. or use spread
+    const people = [...this.state.people];
+    people.splice(personIndex, 1);
+    this.setState({people: people});
   }
 
   nameChangeHandler = (event) => {
@@ -48,14 +46,13 @@ class App extends Component {
     if (this.state.showPeople) {
       people = (
         <div>
-          <Person
-          name={this.state.people[0].name}
-          age={this.state.people[0].age}>My hobbie is: Ice-Skating</Person>
-          <Person
-          name={this.state.people[1].name}
-          age={this.state.people[1].age}
-          click = {this.switchNameHandler.bind(this, "Jonathan")}
-          changed = {this.nameChangeHandler}/>
+          {this.state.people.map((person, index) => {
+            return <Person
+             click={() => this.deletePersonHandler(index)}
+             name={person.name}
+             age={person.age}
+             key={person.id} />
+          })}
         </div>
       );
     }
