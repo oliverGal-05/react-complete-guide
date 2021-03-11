@@ -5,8 +5,9 @@ import Person from './Person/Person';
 class App extends Component {
   state = {
     people: [
-      { id: 'asd21' ,name: 'Max', age: 27},
-      { id: 'awe21' ,name: 'John', age: 19}
+      { id: 'asd21', name: 'Max', age: 27},
+      { id: 'awe21', name: 'John', age: 19},
+      { id: 'ope12', name: 'Olic', age: 28}
     ],
     showPeople: false
   }
@@ -44,7 +45,8 @@ class App extends Component {
 
   render() {
     const style = {
-      backgroundColor:'white',
+      backgroundColor:'green',
+      color: 'white',
       font: 'inherit',
       border: '1px solid blue',
       padding: '8px',
@@ -66,14 +68,27 @@ class App extends Component {
           })}
         </div>
       );
+
+      style.backgroundColor = 'red';
     }
+
+    let classes = [];
+    if(this.state.people.length <= 2){
+      classes.push('red');
+    }
+    if(this.state.people.length <= 1){
+      classes.push('bold');
+    }
+
 
     return (
       <div className="App">
         <h1>Let's GO!</h1>
+        <p className={classes.join(' ')}>This should work</p>
         <button
-        style={style}
-        onClick={this.togglePeopleHandler}>Toggle People</button>
+          style={style}
+          onClick={this.togglePeopleHandler}>Toggle People
+        </button>
         {people}
       </div>
     );
